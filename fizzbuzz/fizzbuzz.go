@@ -1,6 +1,9 @@
 package fizzbuzz
 
-import "strconv"
+import (
+	"fmt"
+	"strconv"
+)
 
 func answer(n int) string {
 	if n%15 == 0 {
@@ -11,4 +14,15 @@ func answer(n int) string {
 		return "Buzz"
 	}
 	return strconv.Itoa(n)
+}
+
+func print(n int) {
+	fmt.Print(answer(n))
+}
+
+func printall(max int) {
+	for i := 1; i <= max; i++ {
+		print(i)
+		fmt.Println("")
+	}
 }
