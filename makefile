@@ -1,0 +1,6 @@
+.PHONEY:test
+
+test:
+	goimports -w ./
+	go vet ./...
+	go test -v ./...
