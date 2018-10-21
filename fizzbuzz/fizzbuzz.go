@@ -5,7 +5,7 @@ import (
 	"strconv"
 )
 
-func answer(n int) string {
+func Itoa(n int) string {
 	if n%15 == 0 {
 		return "FizzBuzz"
 	} else if n%3 == 0 {
@@ -17,10 +17,10 @@ func answer(n int) string {
 }
 
 func print(n int) {
-	fmt.Print(answer(n))
+	fmt.Print(Itoa(n))
 }
 
-func printall(max int) {
+func PrintBy(max int) {
 	for i := 1; i <= max; i++ {
 		print(i)
 		fmt.Println("")

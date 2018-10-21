@@ -7,7 +7,7 @@ import (
 	"testing"
 )
 
-func TestAnswer(t *testing.T) {
+func TestItoa(t *testing.T) {
 	tests := []struct {
 		in   int
 		want string
@@ -28,7 +28,7 @@ func TestAnswer(t *testing.T) {
 	}
 
 	for _, tt := range tests {
-		got := answer(tt.in)
+		got := Itoa(tt.in)
 
 		if got != tt.want {
 			t.Errorf("answer(%v) == %v, want %v", tt.in, got, tt.want)
@@ -52,10 +52,10 @@ func TestPrint(t *testing.T) {
 	}
 }
 
-func TestPrintall(t *testing.T) {
+func TestPrintby(t *testing.T) {
 
 	out := captureStdout(func() {
-		printall(20)
+		PrintBy(20)
 	})
 	want := `1
 2
@@ -81,8 +81,6 @@ Buzz
 	if out != want {
 		t.Errorf("out == %#v, want %#v", out, want)
 	}
-
-	printall(100)
 }
 
 func captureStdout(f func()) string {
