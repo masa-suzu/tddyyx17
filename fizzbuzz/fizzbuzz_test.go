@@ -164,6 +164,11 @@ Buzz
 	}
 }
 
+// captureStdoutでは標準出力される文字列をよこどりする。
+// 標準出力を一旦パイプにリダイレクトして、それをバイト列としてバッファーする。
+// 最終的には文字列として返す。
+// https://qiita.com/kami_zh/items/ff636f15da87dabebe6cからコピーした。
+// fizzbuzz.printやfizzbuzz.PrintBy関数がテスト書けない系FizzBuzzなので、テストコードで頑張っている。
 func captureStdout(f func()) string {
 	r, w, err := os.Pipe()
 	if err != nil {
