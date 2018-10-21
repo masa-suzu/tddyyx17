@@ -7,7 +7,7 @@ import (
 	"testing"
 )
 
-func TestAnswer(t *testing.T) {
+func TestItoa(t *testing.T) {
 	tests := []struct {
 		in   int
 		want string
@@ -28,7 +28,7 @@ func TestAnswer(t *testing.T) {
 	}
 
 	for _, tt := range tests {
-		got := answer(tt.in)
+		got := Itoa(tt.in)
 
 		if got != tt.want {
 			t.Errorf("answer(%v) == %v, want %v", tt.in, got, tt.want)
@@ -52,10 +52,10 @@ func TestPrint(t *testing.T) {
 	}
 }
 
-func TestPrintall(t *testing.T) {
+func TestPrintBy(t *testing.T) {
 
 	out := captureStdout(func() {
-		printall(20)
+		PrintBy(100)
 	})
 	want := `1
 2
@@ -77,14 +77,98 @@ FizzBuzz
 Fizz
 19
 Buzz
+Fizz
+22
+23
+Fizz
+Buzz
+26
+Fizz
+28
+29
+FizzBuzz
+31
+32
+Fizz
+34
+Buzz
+Fizz
+37
+38
+Fizz
+Buzz
+41
+Fizz
+43
+44
+FizzBuzz
+46
+47
+Fizz
+49
+Buzz
+Fizz
+52
+53
+Fizz
+Buzz
+56
+Fizz
+58
+59
+FizzBuzz
+61
+62
+Fizz
+64
+Buzz
+Fizz
+67
+68
+Fizz
+Buzz
+71
+Fizz
+73
+74
+FizzBuzz
+76
+77
+Fizz
+79
+Buzz
+Fizz
+82
+83
+Fizz
+Buzz
+86
+Fizz
+88
+89
+FizzBuzz
+91
+92
+Fizz
+94
+Buzz
+Fizz
+97
+98
+Fizz
+Buzz
 `
-	if out != want {
-		t.Errorf("out == %#v, want %#v", out, want)
-	}
 
-	printall(100)
+	if out != want {
+		t.Errorf("\ngot  %#v, \nwant %#v", out, want)
+	}
 }
 
+// captureStdoutでは標準出力される文字列をよこどりする。
+// 標準出力を一旦パイプにリダイレクトして、それをバイト列としてバッファーする。
+// 最終的には文字列として返す。
+// https://qiita.com/kami_zh/items/ff636f15da87dabebe6cからコピーした。
+// fizzbuzz.printやfizzbuzz.PrintBy関数がテスト書けない系FizzBuzzなので、テストコードで頑張っている。
 func captureStdout(f func()) string {
 	r, w, err := os.Pipe()
 	if err != nil {
@@ -93,6 +177,12 @@ func captureStdout(f func()) string {
 
 	stdout := os.Stdout
 	os.Stdout = w
+
+	restoreStdout := func() {
+		os.Stdout = stdout
+	}
+
+	defer restoreStdout()
 
 	f()
 
