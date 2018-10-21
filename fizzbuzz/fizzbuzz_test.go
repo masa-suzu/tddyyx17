@@ -173,6 +173,12 @@ func captureStdout(f func()) string {
 	stdout := os.Stdout
 	os.Stdout = w
 
+	restoreStdout := func() {
+		os.Stdout = stdout
+	}
+
+	defer restoreStdout()
+
 	f()
 
 	os.Stdout = stdout
